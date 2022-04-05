@@ -6,8 +6,9 @@ from django.db import models
 
 
 class Areas(models.Model):
-    Area_id = models.AutoField(primary_key= True)
-    Center_coords = models.TextField()
+    Area_id = models.IntegerField(primary_key= True)
+    Center_atitude = models.FloatField(default = 0)
+    Center_longitude = models.FloatField(default= 0)
     Radius = models.FloatField()
     Creation_date = models.DateField()
     Is_Active = models.BooleanField()
@@ -15,7 +16,7 @@ class Areas(models.Model):
 
 
 class Networks(models.Model):
-    Network_id = models.AutoField(primary_key=True)
+    Network_id = models.IntegerField(primary_key=True)
     Network_name = models.TextField()
 
 
@@ -23,7 +24,8 @@ class Networks(models.Model):
 
 class Stores(models.Model):
     Store_id = models.AutoField(primary_key= True)
-    Center_coords = models.TextField()
+    Store_atitude = models.FloatField(default= 0)
+    Store_longitude = models.FloatField(default= 0)
     Network_id = models.ForeignKey(Networks, on_delete=models.DO_NOTHING)
 
 
