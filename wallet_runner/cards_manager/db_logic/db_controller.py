@@ -1,12 +1,15 @@
 import datetime
 import json
-from ..models import *
-from .geometry import *
+# from wallet_runner.cards_manager.models import *
+# from .geometry import *
 
 # по координатам вернуть все орг-ии в зоне, к которой относится точка (список)
+from .geometry import is_in_area
+from ..models import Areas, Area_Store, Stores
 
-def get_stores_in_area(attitude,longitude):
-    x = float(attitude)
+
+def get_stores_in_area(latitude, longitude):
+    x = float(latitude)
     y = float(longitude)
     areas = Areas.objects.all()
     user_area_id = -1
@@ -28,14 +31,14 @@ def get_stores_in_area(attitude,longitude):
         
 
 # через список словарей с инфой о магазинах создать зону и запихать ее в базу
-def save_new_area(x,y,radius,stores):
+def save_new_area(latitude, longitude, radius, stores):
         areas = Areas.objects.all()
         area_id = areas.count
 
         new_area = Areas()
         new_area.Area_id = area_id
-        new_area.Center_atitude = x
-        new_area.Center_longitude = y
+        new_area.Center_atitude = latitude
+        new_area.Center_longitude = longitude
         new_area.Radius = radius 
         new_area.Creation_date = datetime.date.today()
         new_area.Is_Active = True
