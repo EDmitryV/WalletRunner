@@ -61,4 +61,8 @@ def sort_my_cards(request):
             if s1.get('name') == s2.get('name') and s1 != s2:
                 stores.remove(s2)
     stores = sorted(stores, key=lambda s: abs((int(s.get('point').get('lat')) - float(lat))) + abs((int(s.get('point').get('lon')) - float(lon))))
-    return JsonResponse(json.dumps(stores), safe=False)
+    result = []
+    for store in stores:
+        name = store["name"]
+        result.append(name[0:name.find(",")])
+    return JsonResponse(json.dumps(result), safe=False)
