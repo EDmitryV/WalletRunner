@@ -23,14 +23,14 @@ class SortMyCardsView(APIView):
             for desired in ["магазин", "кафе"]:
                 desired = urllib.parse.quote_plus(desired)
                 url = "https://catalog.api.2gis.com/3.0/items?q=" + desired + "&fields=items.point&point=" + lat + "," \
-                      + lon + "&radius=10000&sort_point=" + lat + "," + lon + "&sort=distance&key=ruugku1560"
+                      + lon + "&radius=1000&sort_point=" + lat + "," + lon + "&sort=distance&key=ruugku1560"
                 with urlopen(url) as response:
                     data = response.read()
                 data = data.decode('utf-8')
                 data = json.loads(data)
                 data = data.get('result').get('items')
                 places.extend(data)
-            db_controller.save_new_area(latitude=lat, longitude=lon, radius=10000, stores=places)
+            db_controller.save_new_area(latitude=lat, longitude=lon, radius=1000, stores=places)
         results = []
         for s in places:
             if cards.__contains__(s.get('name').split(',')[0]):
