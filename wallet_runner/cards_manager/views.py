@@ -9,9 +9,9 @@ from .db_logic import db_controller
 class SortMyCardsView(APIView):
     def post(self, request):
         try:
-            cards = request.data.get('cards')
-            longitude = request.data.get('longitude')
-            latitude = request.data.get('latitude')
+            cards = request.data.get('body').get('cards')
+            longitude = str(request.data.get('body').get('longitude'))
+            latitude = str(request.data.get('body').get('latitude'))
         except KeyError:
             return Response({"Error": "Malformed data!"})
         places = db_controller.get_stores_in_area(longitude, latitude)
@@ -47,4 +47,4 @@ class SortMyCardsView(APIView):
         response = []
         for place in results:
             response.append(place["name"])
-        return Response(response)
+        return Response(response + list(set(cards) - set(response)))
