@@ -20,13 +20,14 @@ class SortMyCardsView(APIView):
             latitude = str(request.data.get('body').get('latitude'))
         except KeyError:
             return Response({"Error": "Wrong request body!"})
-        places = db_controller.get_stores_in_area(longitude, latitude)
+        places = db_controller.get_stores_in_area(latitude=latitude, longitude=longitude)
         if places is None:
+            places = []
             for desired in ["магазин", "кафе"]:
                 desired = urllib.parse.quote_plus(desired)
                 url = "https://catalog.api.2gis.com/3.0/items?q=" + desired \
                       + "&fields=items.point&point=" + longitude \
-                      + "," + latitude + "&radius=1000&sort_point=" \
+                      + "," + latitude + "&radius=1500&sort_point=" \
                       + longitude + "," + latitude + "&sort=distance&key=ruugku1560"
                 with urlopen(url) as response:
                     data = response.read()
@@ -36,7 +37,7 @@ class SortMyCardsView(APIView):
                     return Response([])
                 data = data.get('result').get('items')
                 places.extend(data)
-            db_controller.save_new_area(latitude=latitude, longitude=longitude, radius=1500, stores=places)
+            db_controller.save_new_area(latitude=latitude, longitude=longitude, radius=1000, stores=places)
         results = []
         for card in cards.keys():
             for place in places:
