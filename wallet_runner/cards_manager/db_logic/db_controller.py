@@ -20,7 +20,7 @@ def get_stores_in_area(latitude, longitude):
 
     print(user_area_id)
     if user_area_id == -1: # если зоны нет
-        return []
+        return None
     
     user_area_stores = Area_Store.objects.filter(Area_id = user_area_id)
     res = []
