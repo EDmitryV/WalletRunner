@@ -36,7 +36,7 @@ class SortMyCardsView(APIView):
                     return Response([])
                 data = data.get('result').get('items')
                 places.extend(data)
-            db_controller.save_new_area(latitude=latitude, longitude=longitude, radius=1000, stores=places)
+            db_controller.save_new_area(latitude=latitude, longitude=longitude, radius=1500, stores=places)
         results = []
         for card in cards.keys():
             for place in places:
