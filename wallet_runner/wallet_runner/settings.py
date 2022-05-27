@@ -128,16 +128,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:4200"
-]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://stlad.ru",
-    "http://localhost:4200",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_HEADERS = [
   'accept',
   'accept-encoding',
@@ -148,8 +142,5 @@ CORS_ALLOW_HEADERS = [
   'user-agent',
   'x-csrftoken',
   'x-requested-with']
-CORS_ALLOW_METHODS = ['POST']
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:4200",
-]
+CORS_ALLOW_METHODS = ['POST']
